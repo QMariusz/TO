@@ -1,5 +1,6 @@
-package com.to;
+package controller;
 
+import model.Currency;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +16,7 @@ public class ProviderXML implements Provider {
 
     @Override
     public List<Currency> getData() {
-        List<Currency> lista = new ArrayList<Currency>();
+        List<Currency> lista = new ArrayList<>();
         try {
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -30,15 +31,11 @@ public class ProviderXML implements Provider {
 
             NodeList nList = doc.getElementsByTagName("pozycja");
 
-            //System.out.println("----------------------------");
-
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
-
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-                    Currency el = new Currency();
                     Element eElement = (Element) nNode;
                     lista.add(new Currency(eElement.getElementsByTagName("nazwa_waluty").item(0).getTextContent(),
                             Integer.parseInt(eElement.getElementsByTagName("przelicznik").item(0).getTextContent()),
@@ -46,11 +43,9 @@ public class ProviderXML implements Provider {
                             Double.parseDouble(eElement.getElementsByTagName("kurs_sredni").item(0).getTextContent().replaceAll(",", "."))));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return lista;
     }
 }

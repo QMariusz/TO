@@ -1,10 +1,14 @@
-package com.to;
+package model;
 
 import java.util.List;
 
 public class CurrencyList {
 
     private List<Currency> currencyList;
+
+    public CurrencyList(List<Currency> currencyList) {
+        this.currencyList = currencyList;
+    }
 
     public Currency getCurrencyByCode(String code) {
         for (Currency el : currencyList) {
