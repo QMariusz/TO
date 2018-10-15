@@ -16,36 +16,33 @@ public class ProviderXML implements Provider {
 
     @Override
     public List<Currency> getData() {
-        List<Currency> lista = new ArrayList<>();
+        List<Currency> list = new ArrayList<>();
         try {
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL("https://www.nbp.pl/kursy/xml/LastA.xml").openStream());
-
-            //optional, but recommended
-            //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
-            //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
             NodeList nList = doc.getElementsByTagName("pozycja");
-
             for (int temp = 0; temp < nList.getLength(); temp++) {
-
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
                     Element eElement = (Element) nNode;
-                    lista.add(new Currency(eElement.getElementsByTagName("nazwa_waluty").item(0).getTextContent(),
+                    list.add(new Currency(eElement.getElementsByTagName("nazwa_waluty").item(0).getTextContent(),
                             Integer.parseInt(eElement.getElementsByTagName("przelicznik").item(0).getTextContent()),
                             eElement.getElementsByTagName("kod_waluty").item(0).getTextContent(),
                             Double.parseDouble(eElement.getElementsByTagName("kurs_sredni").item(0).getTextContent().replaceAll(",", "."))));
                 }
             }
+            addPolishCurrency(list);
         } catch (Exception e) {
-            e.printStackTrace();
         }
-        return lista;
+        return list;
     }
+
+    private void addPolishCurrency(List<Currency> list) {
+        list.add(new Currency("Złoty", 1, "PLN", 1));
+    }
+
 }
