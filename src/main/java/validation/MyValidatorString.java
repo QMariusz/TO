@@ -1,8 +1,6 @@
-package controller;
+package validation;
 
 public class MyValidatorString implements MyValidator {
-
-    private double inputDouble;
 
     @Override
     public boolean validateInput(String input) {

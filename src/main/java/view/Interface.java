@@ -50,13 +50,13 @@ public class Interface extends JFrame {
         leftTextField = new JTextField();
         leftTextField.setBounds(10, 40, 180, 24);
         leftTextField.setFont(new Font("Serif", Font.PLAIN, 14));
+        leftTextField.setText("1");
 
         rightTextField = new JTextField();
         rightTextField.setBounds(295, 40, 180, 24);
         rightTextField.setFont(new Font("Serif", Font.PLAIN, 14));
         rightTextField.setEnabled(false);
         rightTextField.setDisabledTextColor(Color.black);
-
 
         container.add(leftTextField);
         container.add(rightTextField);
@@ -78,17 +78,20 @@ public class Interface extends JFrame {
         add(przyciski);
         setVisible(true);
 
-        //click Enter
+        addListeners();
+    }
+
+    private void addListeners() {
         leftTextField.addActionListener(e -> rightTextField.setText(calculate.count(leftTextField.getText(),
                 leftComboBox.getSelectedItem(), rightComboBox.getSelectedItem())));
 
         leftComboBox.addActionListener(e -> {
-            leftTextField.setText("");
+            leftTextField.setText("1");
             rightTextField.setText("");
         });
 
         rightComboBox.addActionListener(e_ -> {
-            leftTextField.setText("");
+            leftTextField.setText("1");
             rightTextField.setText("");
         });
 

@@ -29,8 +29,4 @@ public class Currency {
     public double getRate() {
         return rate;
     }
-
-    public void setMultiplier(int multiplier) {
-        this.multiplier = multiplier;
-    }
 }

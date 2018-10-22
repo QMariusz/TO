@@ -17,8 +17,8 @@ public class ProviderXML implements Provider {
     @Override
     public List<Currency> getData() {
         List<Currency> list = new ArrayList<>();
+        addPolishCurrency(list);
         try {
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new URL("https://www.nbp.pl/kursy/xml/LastA.xml").openStream());
@@ -35,14 +35,13 @@ public class ProviderXML implements Provider {
                             Double.parseDouble(eElement.getElementsByTagName("kurs_sredni").item(0).getTextContent().replaceAll(",", "."))));
                 }
             }
-            addPolishCurrency(list);
         } catch (Exception e) {
         }
         return list;
     }
 
     private void addPolishCurrency(List<Currency> list) {
-        list.add(new Currency("Złoty", 1, "PLN", 1));
+        list.add(new Currency("Polski Złoty", 1, "PLN", 1));
     }
 
 }

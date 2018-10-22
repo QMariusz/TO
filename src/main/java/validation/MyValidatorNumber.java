@@ -1,4 +1,4 @@
-package controller;
+package validation;
 
 public class MyValidatorNumber implements MyValidator {
 
@@ -11,6 +11,9 @@ public class MyValidatorNumber implements MyValidator {
         } catch (Exception e) {
             return false;
         }
-        return !(inputDouble < 0);
+        if(inputDouble<0){
+            return false;
+        }
+        return (inputDouble*100 == Math.floor(inputDouble*100));
     }
 }

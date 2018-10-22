@@ -2,6 +2,8 @@ package controller;
 
 import model.Currency;
 import model.CurrencyList;
+import validation.MyValidatorNumber;
+import validation.MyValidatorString;
 
 public class Calculate {
 

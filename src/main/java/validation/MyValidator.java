@@ -1,4 +1,4 @@
-package controller;
+package validation;
 
 public interface MyValidator {
 
